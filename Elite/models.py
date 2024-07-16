@@ -1,4 +1,5 @@
 from django.db import models
+
 class Usuario(models.Model):
     descripcion = models.CharField(max_length=20)
     nombre = models.CharField(max_length=20)
@@ -59,6 +60,10 @@ class Pqrs(models.Model):
     asunto = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=250)
 
+    def __str__(self):
+        return f'{self.asunto}'
+
+
 class Comentarios(models.Model):
     deportista = models.ForeignKey(Deportista, on_delete=models.CASCADE)
     patrocinador = models.ForeignKey(Patrocinador, on_delete=models.CASCADE)
@@ -69,6 +74,7 @@ class Comentarios(models.Model):
     def __str__(self):
         return f'{self.texto}'
 
+
 class Deporte(models.Model):
     deportista = models.OneToOneField(Deportista, on_delete=models.CASCADE, primary_key=True)
     nombre = models.CharField(max_length=50)
@@ -76,6 +82,7 @@ class Deporte(models.Model):
 
     def __str__(self):
         return f'{self.nombre}'
+
 
 class Contenido(models.Model):
     deportista = models.ForeignKey(Deportista, on_delete=models.CASCADE)
@@ -87,4 +94,34 @@ class Contenido(models.Model):
     
 
     def __str__(self):
-        return self.titulo
+        return f'{self.titulo}'
+    
+
+##Another superclass, it is not yet related to more classes, (they are only related to those below)
+
+class Facturacion(models.Model):
+    nombre_usuario = models.CharField(max_length=30)
+    numero_factura = models.IntegerField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    Valor_factura = models.DecimalField(max_digits=10)
+
+    def __str__(self):
+        return f'{self.nombre_usuario}'
+
+
+
+class EncabezadoFact(models.Model):
+    facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
+    nombre_usuario = models.CharField(max_length=30)
+    resolucion_fact = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'{self.nombre_usuario}'
+
+
+class DetalleFact(models.Model):
+    facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
+    iva = models.DecimalField(max_digits=5, decimal_places=2)
+    valor_total = models.DecimalField(max_digits=10)
+
+   
