@@ -123,5 +123,22 @@ class DetalleFact(models.Model):
     facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
     iva = models.DecimalField(max_digits=5, decimal_places=2)
     valor_total = models.DecimalField(max_digits=10)
+    nombre_usuario = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'{self.nombre_usuario}'
+
+
+class Pagos(models.Model): 
+      facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
+      valor_pago =  models.DecimalField()
+      fecha_pago =  models.DateField()
+      nombre_usuario = models.CharField(max_length=30)
+
+      def __str__(self):
+        return f'{self.nombre_usuario}'
+
+
+
 
    
