@@ -17,6 +17,7 @@ class Usuario(models.Model):
 class Deportista(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     deporte = models.CharField(max_length=25)
+    edad = models.ImageField()
 
     def __str__(self):
         return f'{self.usuario.nombre} - {self.deporte}'
@@ -74,9 +75,9 @@ class Comentarios(models.Model):
     def __str__(self):
         return f'{self.texto}'
 
-
+#Agregue related_name='deporte_detail'
 class Deporte(models.Model):
-    deportista = models.OneToOneField(Deportista, on_delete=models.CASCADE, primary_key=True)
+    deportista = models.OneToOneField(Deportista, related_name='deporte_detail',  on_delete=models.CASCADE, primary_key=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField()
 
@@ -103,7 +104,7 @@ class Facturacion(models.Model):
     nombre_usuario = models.CharField(max_length=30)
     numero_factura = models.IntegerField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    Valor_factura = models.DecimalField(max_digits=10)
+    Valor_factura = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return f'{self.nombre_usuario}'
@@ -122,7 +123,7 @@ class EncabezadoFact(models.Model):
 class DetalleFact(models.Model):
     facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
     iva = models.DecimalField(max_digits=5, decimal_places=2)
-    valor_total = models.DecimalField(max_digits=10)
+    valor_total = models.DecimalField(max_digits=10, decimal_places=2)
     nombre_usuario = models.CharField(max_length=30)
 
     def __str__(self):
@@ -131,7 +132,7 @@ class DetalleFact(models.Model):
 
 class Pagos(models.Model): 
       facturacion = models.OneToOneField(Facturacion, on_delete=models.CASCADE, primary_key=True)
-      valor_pago =  models.DecimalField()
+      valor_pago = models.DecimalField(max_digits=10, decimal_places=2)
       fecha_pago =  models.DateField()
       nombre_usuario = models.CharField(max_length=30)
 
