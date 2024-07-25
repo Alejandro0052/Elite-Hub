@@ -37,7 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Elite'
+    'Elite',
+    'Deporte',
+    'Deportista',
+    'Invitados',
+    'Marcas',
+    'Nutricionistas',
+    'Patrocinador',
+    'Usuarios'
+  
 ]
 
 MIDDLEWARE = [
