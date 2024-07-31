@@ -17,43 +17,46 @@ class Usuario(models.Model):
 class Deportista(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     deporte = models.CharField(max_length=25)
-    edad = models.ImageField()
+    edad = models.IntegerField()
 
     def __str__(self):
-        return f'{self.usuario.nombre} - {self.deporte}'
+        return f'{self.deporte}'
     
 class Patrocinador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
-    descripcion = models.CharField(max_length=20)
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    numero_telefono = models.IntegerField()
+    #descripcion = models.CharField(max_length=20)
+   # nombre = models.CharField(max_length=20)
+    #apellido = models.CharField(max_length=20)
+    #numero_telefono = models.IntegerField()
+    deportistas_interes = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.nombre} - {self.apellido}' 
+        return f'{self.deportistas_interes}' 
     
     
 class Marca(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    descripcion = models.CharField(max_length=20)
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    numero_telefono = models.IntegerField()
+    #descripcion = models.CharField(max_length=20)
+    #nombre = models.CharField(max_length=20)
+    #apellido = models.CharField(max_length=20)
+    #numero_telefono = models.IntegerField()
+    #razon_social = models.CharField(max_length=60)
+    razon_social = models.CharField(max_length=60, default='Valor Predeterminado')
 
     def __str__(self):
-        return f'{self.nombre} - {self.descripcion}'
+        return f'{self.razon_social}'
 
-
-class Invitados(models.Model):
+#PENDIENTE DE DISEÑAR BIEN COMO SE VA A MANEJAR ESTE TEMA DE LOS INVITADOS QUE NO VAN A TENER CREADO UN PERFIL
+#class Invitados(models.Model):
   # usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
-    descripcion = models.CharField(max_length=20)
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    numero_telefono = models.IntegerField()
+    #usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+ #   descripcion = models.CharField(max_length=20)
+  #  nombre = models.CharField(max_length=20)
+   # apellido = models.CharField(max_length=20)
+    #numero_telefono = models.IntegerField()
 
-    def __str__(self):
-        return f'{self.nombre} - {self.descripcion}'
+    #def __str__(self):
+     #   return f'{self.nombre} - {self.descripcion}'
 
 
 class Pqrs(models.Model):
