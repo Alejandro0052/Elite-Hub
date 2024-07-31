@@ -12,7 +12,7 @@ class Facturacion(models.Model):
 
     def __str__(self):
         return f'{self.nombre_usuario}'
-
+ 
 
 
 class EncabezadoFact(models.Model):
