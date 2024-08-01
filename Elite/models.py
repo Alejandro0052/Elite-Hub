@@ -14,10 +14,21 @@ class Usuario(models.Model):
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
 
+
+class Nutricionista(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    especialidad = models.CharField(max_length=40)
+
+   
+    def __str__(self):
+        return f'{self.especialidad}'
+    
+
+
 class Deportista(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     deporte = models.CharField(max_length=25)
-    edad = models.IntegerField()
+   # edad = models.IntegerField()
 
     def __str__(self):
         return f'{self.deporte}'
