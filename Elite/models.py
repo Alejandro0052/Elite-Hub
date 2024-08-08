@@ -25,13 +25,25 @@ class Nutricionista(models.Model):
     
 
 
+
+
 class Deportista(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
-    deporte = models.CharField(max_length=25)
+    #deporte = models.OneToOneField(Deporte, on_delete=models.CASCADE, fo_key=True)
    # edad = models.IntegerField()
 
-    def __str__(self):
-        return f'{self.deporte}'
+   # def __str__(self):
+    #    return f'{self.deporte}'
+    
+
+#Agregue related_name='deporte_detail'
+class Deporte(models.Model):
+    deportista = models.OneToOneField(Deportista, on_delete=models.CASCADE,primary_key=True)
+    #deportista = models.OneToOneField(Deportista, related_name='deporte_detail',  on_delete=models.CASCADE, primary_key=True)
+    nombre = models.CharField(max_length=50)
+    descripcion = models.TextField()
+
+   
     
 class Patrocinador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
@@ -52,7 +64,7 @@ class Marca(models.Model):
     #apellido = models.CharField(max_length=20)
     #numero_telefono = models.IntegerField()
     #razon_social = models.CharField(max_length=60)
-    razon_social = models.CharField(max_length=60, default='Valor Predeterminado')
+    razon_social = models.CharField(max_length=60, default='Coloca el nombre de tu empresa')
 
     def __str__(self):
         return f'{self.razon_social}'
@@ -89,11 +101,7 @@ class Comentarios(models.Model):
     def __str__(self):
         return f'{self.texto}'
 
-#Agregue related_name='deporte_detail'
-class Deporte(models.Model):
-    deportista = models.OneToOneField(Deportista, related_name='deporte_detail',  on_delete=models.CASCADE, primary_key=True)
-    nombre = models.CharField(max_length=50)
-    descripcion = models.TextField()
+
 
     def __str__(self):
         return f'{self.nombre}'
